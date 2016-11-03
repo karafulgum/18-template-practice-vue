@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="section">
     <div class="container">
-      <form class="panel">
+      <form @submit.prevent="submitForm" class="panel">
         <p class="panel-heading">
           Sign Up For My Web App
         </p>
@@ -28,7 +28,7 @@
           </p>
         </div>
         <div class="panel-block">
-          <a class="button is-primary is-fullwidth">Submit</a>
+          <button class="button is-primary is-fullwidth">Submit</button>
         </div>
       </form>
     </div>
@@ -59,8 +59,18 @@ export default {
         this.formInputs = formInputs;
       });
     },
-    submitForm() {
-
+    submitForm(formValues) {
+      fetch('http://tiny-tn.herokuapp.com/collections/form-kara>', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.formValues)
+      })
+      .then(() => {
+        console.log(formValues);
+        this.formValues = formValues;
+      });
     },
   },
 };
