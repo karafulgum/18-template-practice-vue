@@ -52,14 +52,28 @@
 </template>
 
 <script>
+const apiUrl = 'http://json-data.herokuapp.com/forms';
+
 export default {
   data() {
     return {
+      formInputs: [],
+      formValues: [],
+      apiUrl: apiUrl,
     };
   },
 
   methods: {
+    getData() {
+      fetch(`${apiUrl}`)
+      .then((r) => r.json())
+      .then((formInputs) => {
+        this.formInputs = formInputs;
+      });
+    },
+    submitForm() {
 
+    },
   },
 };
 </script>
